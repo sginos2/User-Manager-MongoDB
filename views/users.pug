@@ -1,0 +1,33 @@
+html
+    head
+        title User Manager
+    body
+        h1 Users
+        form(action="/search", method="post")
+            input(type='text', name="search", id="search" placeholder='Search by First Name')
+            button(type='submit') Submit
+        form(action="/sortOY", method="get")
+            button(type='submit', id="old-young") Sort Oldest-Youngest
+        form(action="/sortYO", method="get")
+            button(type='submit', id="young-old") Sort Youngest-Oldest
+        
+        table(style='width:100%', border='1')
+            tr
+                th User ID
+                th First Name
+                th Last Name
+                th Email
+                th Age
+            each item in users
+                tr
+                    td= item._id
+                    td= item.firstName
+                    td= item.lastName
+                    td= item.email
+                    td= item.age
+                    td
+                        a(href=`/edit/${item._id}`, name='edit') Edit
+                    td
+                        form(method="post", action="/table")
+                            input(type="hidden", id="userId", name="userId" value=`${item._id}`)
+                            button(name='delete', id="delete") Delete
